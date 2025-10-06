@@ -19,10 +19,6 @@ La web desplegada correctament.
 Com es connecta a la base de dades sense errors.
 Resultats visibles d’operacions (ex. inserció o consulta de dades).
 
-> Incloure aquí les captures requerides, tipus:
-> ![Web funcionant](../img/captura-web-funcionant.png)  
-> ![Connexió BBDD correcta](../img/captura-bbdd-correcta.png)
-
 ## Check-list i bugs corregits
 
 S’han identificat els “bugs” del codi i arreglat via commit al repositori.
