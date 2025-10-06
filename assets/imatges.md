@@ -1,1 +1,1 @@
-![SQL](Baixades/image1.png)
+![SQL](image1.png)
