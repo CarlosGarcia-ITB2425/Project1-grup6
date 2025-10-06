@@ -10,7 +10,6 @@ S’ha creat un repositori a GitHub, que és públic.
 El directori inicial conté un README.md descriptiu.
 Dins el directori docs hi ha aquesta documentació en Markdown (instal·lacio.md) i un altre README.md indicant el contingut del directori.
 
-> Enllaç al repositori: [Incloure aquí l’enllaç real del vostre GitHub]
 
 ## Exemples funcionament i demostració
 
