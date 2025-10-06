@@ -1,0 +1,98 @@
+# Fase II: Documentació del desplegament i configuració
+
+## Requisits previs
+Per a la realització d’aquesta pràctica s’ha partit d’un codi inicial proveït per l’equip docent (accessible via codeshare), i s’ha utilitzat un repositori Git on els membres de l’equip tenen permisos d’escriptura i poden commitejar. Cal disposar de màquines virtuals (o físiques) per desplegar:
+- Un servidor web (Apache + PHP)
+- Un servidor de base de dades (MySQL/MariaDB)
+
+## Instal·lació de programari
+
+### Paquets necessaris
+A la màquina Web, s’han instal·lat els següents paquets:
+
+sudo apt update
+sudo apt install apache2 php libapache2-mod-php php-mysql -y
+
+Per a la base de dades:
+
+sudo apt install mysql-server -y
+
+### Activació de serveis
+sudo systemctl start apache2
+sudo systemctl enable apache2
+sudo systemctl start mysql
+sudo systemctl enable mysql
+
+  
+## Configuració de la base de dades
+
+1. Iniciar MySQL i accedir com a root:
+    ```
+    sudo mysql -u root -p
+    ```
+2. Crear la base de dades i usuari:
+    ```
+    CREATE DATABASE projectedb;
+    CREATE USER 'lukaweb'@'localhost' IDENTIFIED BY 'Luka1234!';
+    GRANT ALL PRIVILEGES ON projectedb.* TO 'lukaweb'@'localhost';
+    FLUSH PRIVILEGES;
+    ```
+
+## Configuració d’Apache, PHP i permisos
+
+- Crear fitxer de configuració per a la connexió amb la base de dades a `/var/www/html/config.php`:
+    ```
+    <?php
+    $host = "127.0.0.1";
+    $db = "projectedb";
+    $user = "lukaweb";
+    $pass = "Luka1234!";
+    $conn = new mysqli($host, $user, $pass, $db);
+    if ($conn->connect_error) {
+        die("Connexió fallida: " . $conn->connect_error);
+    } else {
+        echo "Connexió a la BBDD correcta";
+    }
+    ?>
+    ```
+
+- Assignar permisos i propietari correctes per a la carpeta web:
+    ```
+    sudo chown -R www-data:www-data /var/www/html
+    sudo chmod -R 755 /var/www/html
+    ```
+
+## Arquitectura desplegada
+
+- Opció simple: Un únic servidor que executa tant el servei web com la base de dades.
+- Opció avançada: Separació per rols, amb una VM per al servidor web (apache2+php) i una altra per a la BBDD (MySQL), comunicant-se per xarxa privada virtual.
+
+
+## Repositori i estructura
+
+- S’ha creat un repositori a GitHub, que és públic.
+- El directori inicial conté un `README.md` descriptiu.
+- Dins el directori `docs` hi ha aquesta documentació en Markdown (`instal·lacio.md`) i un altre `README.md` indicant el contingut del directori.
+
+> Enllaç al repositori: _[Incloure aquí l’enllaç real del vostre GitHub]_
+
+## Exemples funcionament i demostració
+
+És imprescindible afegir captures de pantalla on es pugui veure:
+- La web desplegada correctament.
+- Com es connecta a la base de dades sense errors.
+- Resultats visibles d’operacions (ex. inserció o consulta de dades).
+
+> Incloure aquí les captures requerides, tipus:
+> ![Web funcionant](../img/captura-web-funcionant.png)  
+> ![Connexió BBDD correcta](../img/captura-bbdd-correcta.png)
+
+## Check-list i bugs corregits
+
+- S’han identificat els “bugs” del codi i arreglat via commit al repositori.
+- S’ha deixat constància dels canvis al registre de Git.
+- El sistema arrenca correctament sense errors de permisos ni autenticació.
+
+
+
+
